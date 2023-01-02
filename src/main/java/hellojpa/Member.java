@@ -16,7 +16,10 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; //- 'id': 'DB 테이블 Member의 컬럼 id'로 매핑됨.
+    private Long id; //- 'private int id'로 쓰게 되면, 'int'에 '0'이 들어갈 수 있기 때문에 이렇게는 지양해야 하고,
+                     //   대신, 'Integer'를 써도 되는데, 그보다는 'Long'을 쓰는 게 가장 좋다.
+                     //   왜냐하면, 'Long'은 id가 10억이 넘어가는 것까지 가능하다. 사실상, 메모리 점유 차이도 Integer와 별로 안남.
+                     //- 'id': 'DB 테이블 Member의 컬럼 id'로 매핑됨.
                      //- '@Id': 'DB 테이블 Member'의 'PK'는 '여기 자바 객체의 id'임을 말해주기 위해 '@Id'를 붙인 것임.
                      //- '@GeneratedValue': '기본 키' '자동 생성'
                      //1. 'GenerationType.IDENTITY': '기본키 생성'을 'DB에 위임'.
@@ -24,7 +27,10 @@ public class Member {
                      //                             주로 'MySQL', 'PostgreSQL' 등에서 사용
                      //2. 'GenerationType.SEQUENCE': DB에 있는 '시퀀스 오브젝트'를 통해서, 기본키를 생성시키는 것
                      //                              주로 '오라클', 'H2' 등에서 사용.
-                     //                              아래처럼 설정해줘야 함.
+                     //                              그냥 'GenerationType.IDENTITY' 대신 그 자리에
+                     //                              'GenerationType.SEQUENCE'만 써주고 실행해도 되고,
+                     //                              'DB 테이블마다' 시퀀스를 따로 개별적으로 관리하고 싶으면,
+                     //                              아래처럼 '@SequenceGenerator'로 매핑설정 해줘도 됨.
                      //@Entity
                      //@SequenceGenerator(name = "MEMBER_SEQ_GENERATOR",
                      //                   sequenceName = "MEMBER_SEQ", //매핑할 DB의 시퀀스 이름
@@ -34,7 +40,22 @@ public class Member {
                      //    @GeneratedValue(strategy = GenerationType.SEQUENCE,
                      //                    generator = "MEMBER_SEQ_GENERATOR")
                      //    private Long id;
-                     //3. 'Gene
+                     //3. 'GenerationType.TABLE': DB 자체 내부에 아래 쿼리문으로 미리 '기본키만을 생성할 테이블'을 하나 만들어놓음
+                     //                           create table MY_SEQUENCES(
+                     //                                 sequence_name varchar(255) not null,
+                     //                                 next_val bigint,
+                     //                                 primary key( sequence_name )
+                     //                                 )
+                     //@Entity
+                     //@TableGenerator(name = "MEMBER_SEQ_GENERATOR",
+                     //                table = "MY_SEQUENCES", //DB내부에 위 쿼리문으로 생성한 '기본키 생성 전담 테이블명'
+                     //                pkColumnValue = "MEMBER_SEQ", //'기본키 생성 테이블의 기본키 생성 전담 컬럼'
+                     //                allocationSize = 1)
+                     //public class Member{
+                     //    @Id
+                     //    @GeneratedValue(strategy = GenerationType.TABLE,
+                     //                    generator = "MEMBER_SEQ_GENERATOR")
+                     //    private Long id;
 
 
 
