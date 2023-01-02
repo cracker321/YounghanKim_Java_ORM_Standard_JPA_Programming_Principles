@@ -19,10 +19,25 @@ public class Member {
     private Long id; //- 'id': 'DB 테이블 Member의 컬럼 id'로 매핑됨.
                      //- '@Id': 'DB 테이블 Member'의 'PK'는 '여기 자바 객체의 id'임을 말해주기 위해 '@Id'를 붙인 것임.
                      //- '@GeneratedValue': '기본 키' '자동 생성'
-                     //- 'GenerationType.IDENTITY': '기본키 생성'을 'DB에 위임'.
-                     //                             기본키가 1, 2, 3, ... 자동적으로 생성, 증가..
-                     //                             주로 MySQL, PostgreSQL 등에서 사용
-                     //- 'GenerationType.SEQUENCE':
+                     //1. 'GenerationType.IDENTITY': '기본키 생성'을 'DB에 위임'.
+                     //                             기본키가 1, 2, 3, ... '자동적으로' 생성, 증가..
+                     //                             주로 'MySQL', 'PostgreSQL' 등에서 사용
+                     //2. 'GenerationType.SEQUENCE': DB에 있는 '시퀀스 오브젝트'를 통해서, 기본키를 생성시키는 것
+                     //                              주로 '오라클', 'H2' 등에서 사용.
+                     //                              아래처럼 설정해줘야 함.
+                     //@Entity
+                     //@SequenceGenerator(name = "MEMBER_SEQ_GENERATOR",
+                     //                   sequenceName = "MEMBER_SEQ", //매핑할 DB의 시퀀스 이름
+                     //                   initialValue = 1, allocationSize = 1)
+                     //public class Member{
+                     //    @Id
+                     //    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+                     //                    generator = "MEMBER_SEQ_GENERATOR")
+                     //    private Long id;
+                     //3. 'Gene
+
+
+
 
     //@Column(name = "username") //만약, DB에 이미 '컬럼 username'이 있다면, 아래 '필드 nanme'은 DB에서
                                  //'컬럼 name'으로 입력되는 것이 아니라, '컬럼 username'으로 입력된다!
