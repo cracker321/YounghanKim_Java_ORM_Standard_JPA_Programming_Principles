@@ -22,15 +22,21 @@ public class Member {
                      //- 'id': 'DB 테이블 Member의 컬럼 id'로 매핑됨.
                      //- '@Id': 'DB 테이블 Member'의 'PK'는 '여기 자바 객체의 id'임을 말해주기 위해 '@Id'를 붙인 것임.
                      //- '@GeneratedValue': '기본 키' '자동 생성'
+
                      //1. 'GenerationType.IDENTITY': '기본키 생성'을 'DB에 위임'.
                      //                             기본키가 1, 2, 3, ... '자동적으로' 생성, 증가..
                      //                             주로 'MySQL', 'PostgreSQL' 등에서 사용
-                     //2. 'GenerationType.SEQUENCE': DB에 있는 '시퀀스 오브젝트'를 통해서, 기본키를 생성시키는 것
+                     //2. 'GenerationType.SEQUENCE': DB에 있는 '시퀀스 오브젝트(시퀀스 객체)'를 통해서, 기본키를 생성시키는 것
                      //                              주로 '오라클', 'H2' 등에서 사용.
                      //                              그냥 'GenerationType.IDENTITY' 대신 그 자리에
                      //                              'GenerationType.SEQUENCE'만 써주고 실행해도 되고,
                      //                              'DB 테이블마다' 시퀀스를 따로 개별적으로 관리하고 싶으면,
                      //                              아래처럼 '@SequenceGenerator'로 매핑설정 해줘도 됨.
+                     //                              - 시퀀스: '유일한 값'을 생성해 주는 오라클의 객체
+                     //                                       시퀀스를 생성하면 기본키와 같이 순차적으로 증가하는 컬럼을 자동 생성 가능.
+                     //                                       보통 pk값을 생성하기 위해 사용함.
+                     //                                       시퀀스는 테이블과는 독립적으로 저장되고 생성됨.
+                     //                                       따라서, 하나의 시퀀스를 여러 테이블에서 사용할 수 있음.
                      //@Entity
                      //@SequenceGenerator(name = "MEMBER_SEQ_GENERATOR",
                      //                   sequenceName = "MEMBER_SEQ", //매핑할 DB의 시퀀스 이름
@@ -40,6 +46,7 @@ public class Member {
                      //    @GeneratedValue(strategy = GenerationType.SEQUENCE,
                      //                    generator = "MEMBER_SEQ_GENERATOR")
                      //    private Long id;
+                     //
                      //3. 'GenerationType.TABLE': DB 자체 내부에 아래 쿼리문으로 미리 '기본키만을 생성할 테이블'을 하나 만들어놓음
                      //                           create table MY_SEQUENCES(
                      //                                 sequence_name varchar(255) not null,
