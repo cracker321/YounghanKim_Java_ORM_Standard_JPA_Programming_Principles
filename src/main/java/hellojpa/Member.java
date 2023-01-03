@@ -16,6 +16,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MEMBER_ID")
     private Long id; //- 'private int id'로 쓰게 되면, 'int'에 '0'이 들어갈 수 있기 때문에 이렇게는 지양해야 하고,
                      //   대신, 'Integer'를 써도 되는데, 그보다는 'Long'을 쓰는 게 가장 좋다.
                      //   왜냐하면, 'Long'은 id가 10억이 넘어가는 것까지 가능하다. 사실상, 메모리 점유 차이도 Integer와 별로 안남.
@@ -69,7 +70,7 @@ public class Member {
 
     //@Column(name = "username") //만약, DB에 이미 '컬럼 username'이 있다면, 아래 '필드 nanme'은 DB에서
                                  //'컬럼 name'으로 입력되는 것이 아니라, '컬럼 username'으로 입력된다!
-    @Column(name = "name", insertable = true, updatable = true, nullable = false, length = 10) //'컬럼' 매핑
+    @Column(name = "USERNAME", insertable = true, updatable = true, nullable = false, length = 10) //'컬럼' 매핑
     private String username; //- 'name = "name"': 현재 '이 자바 엔티티 객체의 필드명은 username'이지만, 이 어노테이션에 의해
                              //이미 존재하는 'DB 테이블 Member의 컬럼 name'과 매핑시키고 싶으면, 어노테이션 저렇게 하면 됨
                              //- 'insertable = true(기본값)': '자바 객체의 이 필드'를 수정했을 때,
@@ -80,8 +81,21 @@ public class Member {
                              //- 'length = ': 문자 길이 제약조건. 'String 타입'에서만 사용함.
                              //               만약, 'length = 10'이면 DB에서는 'varchar(10)'이 됨.
 
-    @Column(precision = 20) //'컬럼' 매핑
-    private BigDecimal age; //- 'precision': 아주 큰 숫자 또는 소수점 자릿수 사용할 때
+
+    //'단방향 연관관계'강 16:30~
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID") //'자바의 참조 객체 Team team'과 'DB의 테이블의 외래키 TEAM_ID'를 연결해주는 '연관관계 매핑'
+    private Team team; //- 전제: '회원'은 '하나의 팀'에만 소속될 수 있다.
+                       //       '회원'과 '팀'은 'N대 1 관계'이다.
+                       //- 'Many': 'Member'
+                       //- 'One': 'Team'
+
+//    @Column(name = "TEAM_ID")
+//    private Long teamId; //이 방법은 '객체'를 '테이블'에 맞추어 모델링한 것.
+                           //즉, 객체지향적(객체지향모델링)이지 않다!
+
+//    @Column(precision = 20) //'컬럼' 매핑
+//    private BigDecimal age; //- 'precision': 아주 큰 숫자 또는 소수점 자릿수 사용할 때
 
     @Enumerated(EnumType.STRING)  //'enum 타입' 매핑
     private RoleType roleType; //- '자바앱'에는 'enum 타입'이 있으나, 'DB'에는 'enum 타입'이 없음.
@@ -114,10 +128,9 @@ public class Member {
 
     }
 
-    public Member(Long id, String username, BigDecimal age, RoleType roleType, Date createdDate, Date lastModifiedDate, String description) {
+    public Member(Long id, String username, RoleType roleType, Date createdDate, Date lastModifiedDate, String description) {
         this.id = id;
         this.username = username;
-        this.age = age;
         this.roleType = roleType;
         this.createdDate = createdDate;
         this.lastModifiedDate = lastModifiedDate;
@@ -138,14 +151,6 @@ public class Member {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public BigDecimal getAge() {
-        return age;
-    }
-
-    public void setAge(BigDecimal age) {
-        this.age = age;
     }
 
     public RoleType getRoleType() {
