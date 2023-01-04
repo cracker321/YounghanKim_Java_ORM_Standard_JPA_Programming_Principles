@@ -5,6 +5,14 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
+
+//- '단방향 매핑'만으로 최대한 '객체 설계'를 끝내고('N:1'에서 'N쪽 엔티티'에 '단방향 매핑'을 최대한 다 바르고),
+//  이후 필요한 경우에만 '양방향 매핑'을 사용하는 것이다.
+//  '양방향 매핑'을 많이 하는 것은 '자바 객체 입장'에서는 좋을 것이 없다. 복잡해지고 고민거리만 많아지는 것이기 때문.
+//- 다만, 실무에서는 '양방향으로 객체를 참조'하는 경우가 많긴 함.
+//  그러나, 이 때에도 '단방향 매핑'만 잘 해두면, '양방향 매핑'은 필요할 때 추가하면 됨.
+//  그냥 엔티티 객체에 코드 몇 줄만 추가해주면 되는 것이기 때문.
+
 @Entity //여기선 기본적으로 '@Entity(name = "Member")'이고, 여기서 '(name = "Member")'는 생략된 상태임
 //@Table(name = "MBR") //- 만약, 회사 내부 규정 등의 이유로 아래 '자바 객체 Member'를
                        //이미 존재하는 'DB 속 테이블 MBR'에 매핑해야 한다면 이렇게 작성함.
@@ -139,6 +147,7 @@ public class Member {
         this.description = description;
     }
 
+
     public Long getId() {
         return id;
     }
@@ -154,6 +163,23 @@ public class Member {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public Team getTeam() {
+        return team;
+    }
+
+
+
+    //============================================================================================================
+    public void setTeam(Team team) {
+        this.team = team;
+
+        team.getMembers().add(this); //'양방향 연관관계와 연관관계의 주인 2 - 주의점, 정리'강 12:20~
+                                     //- '연관관계 편의 메소드'
+    }
+    //============================================================================================================
+
+
 
     public RoleType getRoleType() {
         return roleType;
