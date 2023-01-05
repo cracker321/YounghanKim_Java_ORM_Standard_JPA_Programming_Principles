@@ -14,8 +14,10 @@ public class Team {
     private Long id;
     private String name;
 
-//    < 'Member 객체(N)'와 'Team 객체(1)' 간의 양방향 연관관계 매핑. '주인 객체(외래키를 소유)'는 'Team 객체'인 경우. 잘 사용X >
+//    < 'Team 객체(1)'와 'Member 객체(N)'와 간의 '1대 N 단방향' 연관관계 매핑. '주인 객체(외래키를 소유)'는 'Team 객체'인 경우. 잘 사용X >
 //    - '주인(1)'이 'Team 객체의 필드 members'인 경우
+//    '단방향' 연관관계 이기에, 여기 'Team 객체 내부'에서만 로직 작성하면 끝.
+//    'Member 객체'에다 무엇을 또 작성할 필요X
     @OneToMany
     @JoinColumn(name = "TEAM_ID")
     private List<Member> members = new ArrayList<Member>();
@@ -24,7 +26,7 @@ public class Team {
 
 
 
-//    < 'Member 객체(N)'와 'Team 객체(1)' 간의 양방향 연관관계 매핑. '주인 객체(외래키를 소유)'는 'Member 객체'인 경우 >
+//    < 'Member 객체(N)'와 'Team 객체(1)' 간의 'N대 1 양방향' 연관관계 매핑. '주인 객체(외래키를 소유)'는 'Member 객체'인 경우 >
 //    - '주인(N)'이 'Member 객체의 필드 team'인 경우
 //    @OneToMany(mappedBy = "team") //'양방향 연관관계와 연관관계의 주인 1- 기본'강 09:00~
 //                                  //'양방향 객체 연관관계 매핑'
