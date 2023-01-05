@@ -90,7 +90,14 @@ public class Member {
                              //               만약, 'length = 10'이면 DB에서는 'varchar(10)'이 됨.
 
 
-    //'단방향 연관관계'강 16:30~
+
+//    < 'Member 객체(N)'와 'Team 객체(1)' 간의 양방향 연관관계 매핑. '주인 객체(외래키를 소유)'는 'Member 객체'인 경우 >
+//    - '주인(N)'이 'Member 객체의 필드 team'인 경우
+//    < 'Member 객체(N)'와 'Team 객체(1)' 간의 양방향 연관관계 매핑. '주인 객체(외래키를 소유)'는 'Team 객체'인 경우. 잘 사용X >
+//    - '주인(1)'이 'Team 객체의 필드 members'인 경우
+//    위 두 케이스 모두 아래 '1' 쪽의 'Team 객체'는 로직 동일하다!
+
+//    //'단방향 연관관계'강 16:30~
     @ManyToOne
     @JoinColumn(name = "TEAM_ID") //'자바의 참조 객체 Team team'과 'DB의 테이블의 외래키 TEAM_ID'를 연결해주는 '연관관계 매핑'
     private Team team; //- '외래키'를 관리하는 이 필드가 바로 여기서 '양방향 연관관계'의 '주인'이다!
@@ -99,6 +106,12 @@ public class Member {
                        //       '회원'과 '팀'은 'N대 1 관계'이다.
                        //- 'Many': 'Member'
                        //- 'One': 'Team'
+
+
+
+
+
+
 
 //    @Column(name = "TEAM_ID")
 //    private Long teamId; //이 방법은 '객체'를 '테이블'에 맞추어 모델링한 것.
