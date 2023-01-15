@@ -20,12 +20,27 @@ import java.util.Date;
                        //'테이블 MBR'에 매핑됨.
                        //- 따라서, 쿼리도 이제 'INSERT INTO MBR VALUES..'로 DB에 날려지게 된다.
 
-public class Member {
+public class Member extends  BaseEntity{
 
-    @Id
-    @GeneratedValue
-    @Column(name = "MEMBER_ID")
-    private Long id; //- 'private int id'로 쓰게 되면, 'int'에 '0'이 들어갈 수 있기 때문에 이렇게는 지양해야 하고,
+
+//< '클래스 BaseEntity'의  '@MappedSupperClass' 기능 >
+//- '클래스 BaseEntity'에  '@MappedSupperClass' 기능을 붙여주어서,
+// 이제 '현재 프로젝트의 모든 자바 객체의 내부 필드들' 중에, '필드 id', '필드 name', '필드 createdBy', '필드 createdDate'...은
+// 이제 '클래스 BaseEntity'로부터 '상속받기로' 하고, 저 '두 필드들'은 더 이상 해당 자바 객체 내에 작성하지 않아도 된다!
+//- 또한, 해당 자바 객체들의 '생성자 내부 필드'에 'this.id = id', 'this.name = name', 'this.createdBy = createdBy'...
+// 역시 이제 작성하면 안된다!
+
+//    @Id
+//    @GeneratedValue
+//    @Column(name = "SELLER_ID")
+//    private Long id;
+//    private String name;
+//    private String createdBy;
+//    private LocalDateTime createdDate;
+//    private String lastModifedBy;
+//    private LocalDateTime lastModifiedDate;
+
+                     //- 'private int id'로 쓰게 되면, 'int'에 '0'이 들어갈 수 있기 때문에 이렇게는 지양해야 하고,
                      //   대신, 'Integer'를 써도 되는데, 그보다는 'Long'을 쓰는 게 가장 좋다.
                      //   왜냐하면, 'Long'은 id가 10억이 넘어가는 것까지 가능하다. 사실상, 메모리 점유 차이도 Integer와 별로 안남.
                      //- 'id': 'DB 테이블 Member의 컬럼 id'로 매핑됨.
@@ -75,6 +90,7 @@ public class Member {
 
 
 
+    private String email;
 
     //@Column(name = "username") //만약, DB에 이미 '컬럼 username'이 있다면, 아래 '필드 nanme'은 DB에서
                                  //'컬럼 name'으로 입력되는 것이 아니라, '컬럼 username'으로 입력된다!
@@ -146,6 +162,8 @@ public class Member {
     private String description;
 
 
+
+
     //JPA는 기본적으로 '기본 생성자'가 하나 반드시 있어야 한다.
     //왜냐하면, JPA는 내부적으로 '리플렉션' 등을 써야 하기 때문에, '동적으로 객체를 생성'하여야 하고,
     //따라서, '기본 생성자'가 하나 있어야 한다.
@@ -153,8 +171,7 @@ public class Member {
 
     }
 
-    public Member(Long id, String username, RoleType roleType, Date createdDate, Date lastModifiedDate, String description) {
-        this.id = id;
+    public Member(String username, RoleType roleType, Date createdDate, Date lastModifiedDate, String description) {
         this.username = username;
         this.roleType = roleType;
         this.createdDate = createdDate;
@@ -163,13 +180,6 @@ public class Member {
     }
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
