@@ -1,13 +1,12 @@
 package hellojpa;
 
-
 import javax.persistence.*;
 
 @Entity
 public class Locker {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY);
+    @GeneratedValue
     private Long id;
 
     private String name;
