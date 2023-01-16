@@ -1,6 +1,9 @@
 package hellojpa;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,6 +16,10 @@ import java.util.Date;
 //  그러나, 이 때에도 '단방향 매핑'만 잘 해두면, '양방향 매핑'은 필요할 때 추가하면 됨.
 //  그냥 엔티티 객체에 코드 몇 줄만 추가해주면 되는 것이기 때문.
 
+
+
+@Getter
+@Setter
 @Entity //여기선 기본적으로 '@Entity(name = "Member")'이고, 여기서 '(name = "Member")'는 생략된 상태임
 //@Table(name = "MBR") //- 만약, 회사 내부 규정 등의 이유로 아래 '자바 객체 Member'를
                        //이미 존재하는 'DB 속 테이블 MBR'에 매핑해야 한다면 이렇게 작성함.
@@ -114,7 +121,7 @@ public class Member extends  BaseEntity{
 //    < 'Member 객체(N)'와 'Team 객체(1)' 간의 'N대 1 양방향' 연관관계 매핑. '주인 객체(외래키를 소유)'는 'Member 객체'인 경우 >
 //    - '주인(N)'이 'Member 객체의 필드 team'인 경우
 //   '단방향 연관관계'강 16:30~
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY) //'프록시 객체'로 조회하는 것! 즉, '지연로딩'을 실행시키는 것이다!
     @JoinColumn(name = "TEAM_ID") //'자바의 참조 객체 Team team'과 'DB의 테이블의 외래키 TEAM_ID'를 연결해주는 '연관관계 매핑'
     private Team team; //- '외래키'를 관리하는 이 필드가 바로 여기서 '양방향 연관관계'의 '주인'이다!
                        //   따라서, 이 필드를 통해서 '회원을 추가, 삭제, 변경 등'을 하거나, '팀을 변경 등'을 할 수 있다(확실히?)
