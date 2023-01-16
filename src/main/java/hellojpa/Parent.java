@@ -23,7 +23,12 @@ public class Parent {
 
     private String name;
 
-    @OneToMany(mappedBy = "parent")
+
+    //< '영속성 전이(CASCADE)와 고아 객체'강 >. '고아 객체 제거'. 'orphanRemoval = true'
+    //만약, 'Child 객체'가 'Parent 객체와의 연관관계'가 '끊어지게 되는 일이 발생한다면',
+    //'Child 객체'를 '자동으로 삭제시켜주는 기능'
+    //
+    @OneToMany(mappedBy = "parent", orphanRemoval = true)
     private List<Child> children = new ArrayList<>();
 
 

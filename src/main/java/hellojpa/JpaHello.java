@@ -28,7 +28,7 @@ public class JpaHello {
             em.flush();
             em.clear();
 
-           Member findMember = em.getReference(Member.class, member.getId());
+//           Member findMember = em.getReference(Member.class, member.getId());
 
            tx.commit();
        }catch(Exception e){
