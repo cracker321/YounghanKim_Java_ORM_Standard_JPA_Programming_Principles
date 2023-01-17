@@ -25,7 +25,6 @@ public class PhoneServiceProvider {
     @Column(name = "PHONE_SERVICE_PROVIDER_ID")
     private Long id;
 
-    private
 
 
 }

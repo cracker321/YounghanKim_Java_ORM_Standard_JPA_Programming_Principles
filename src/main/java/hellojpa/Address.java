@@ -25,7 +25,7 @@ import javax.persistence.Embedded;
 @NoArgsConstructor //'임베디드 타입(값 타입)'은 '기본 생성자'를 만드는 것이 필수다!!!
 @AllArgsConstructor //옵션적으로 하는 듯..?
 @Embeddable
-public class Address {
+public class Address { //새로운 '값 타입(클래스)'인 'Address 객체'
 
     //'접근제어자'는 사용 안한다!
     String city;

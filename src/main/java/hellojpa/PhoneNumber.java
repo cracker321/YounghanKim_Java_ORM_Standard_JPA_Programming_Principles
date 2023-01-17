@@ -19,7 +19,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Embeddable
 @Entity
-public class PhoneNumber {
+public class PhoneNumber { //새로운 '값 타입(클래스)'인 'PhoneNumber 객체'
 
     String areaCode;
     String localNumber;
