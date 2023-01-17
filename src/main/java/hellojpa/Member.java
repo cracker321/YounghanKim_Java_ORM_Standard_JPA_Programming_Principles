@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -138,7 +139,14 @@ public class Member extends  BaseEntity{
     private Locker locker;
 
 
+    
+    //[ '임베디드 타입'강 05:00~ ]
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
+    private String city;
+    private String street;
+    private String zipcode;
 
 
 
@@ -168,6 +176,8 @@ public class Member extends  BaseEntity{
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
+
+
 
     @Lob
     private String description;
