@@ -139,18 +139,35 @@ public class Member extends  BaseEntity{
     private Locker locker;
 
 
+//====================================================================================================================
+
 
     //[ '임베디드 타입'강 05:00~ ]
     //< '새로운 기본값 타입'으로 아래 두 필드를 합쳐서 쓸 수 있는 '근무기간 Period 임베디드 타입'을 생성하기 >
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    //- 즉, '새로운 클래스 Period'를 '생성하고', '그 클래스 Period' 안에 아래 두 필드들을 넣기.
+    //  그리고, 아래 두 필드를 대신하여, 'private Period period'를 사용하는 것임.
+    //- 그 후, '저 클래스 Period 위에는' '@Embeddable'을 쓰거나, 또는
+    //- 이 아래 '필드 period 위에는' '@Embedded'를 작성하거나 둘 중 하나만 하거나, 둘 다 작성해도 된다.
+    //- 사실, '
+//    private LocalDateTime startDate;
+//    private LocalDateTime endDate;
+    @Embedded
+    private Period period;
 
 
     //< '새로운 기본값 타입'으로 아래 두 필드를 합쳐서 쓸 수 있는 '주소 Address 임베디드 타입'을 생성하기 >
-    private String city;
-    private String street;
-    private String zipcode;
+    //- 즉, '새로운 클래스 Address'를 '생성하고', '그 클래스 Address' 안에 아래 세 필드들을 넣기.
+    //  그리고, 아래 세 필드들을 대신하여, 'private Address address'ㅇ를 사용하는 것임.
+    //- 그 후, '저 클래스 Address 위에는' '@Embeddable'을 쓰거나, 또는
+    //- 이 아래 '필드 address 위에는' '@Embedded'를 작성하거나 둘 중 하나만 하거나, 둘 다 작성해도 된다.
+//    private String city;
+//    private String street;
+//    private String zipcode;
+    @Embedded
+    private Address address;
 
+
+//====================================================================================================================
 
 
 //    @Column(name = "TEAM_ID")
