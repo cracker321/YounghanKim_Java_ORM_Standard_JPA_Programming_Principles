@@ -2,6 +2,7 @@ package hellojpa;
 
 
 import lombok.NoArgsConstructor;
+import org.springframework.http.converter.json.GsonBuilderUtils;
 
 import javax.persistence.*;
 
@@ -23,6 +24,7 @@ public class PhoneNumber { //새로운 '값 타입(클래스)'인 'PhoneNumber �
 
     String areaCode;
     String localNumber;
+
 
 
 //================================================================================================================

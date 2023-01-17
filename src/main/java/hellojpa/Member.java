@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.*;
 
 
 //- '단방향 매핑'만으로 최대한 '객체 설계'를 끝내고('N:1'에서 'N쪽 엔티티'에 '단방향 매핑'을 최대한 다 바르고),
@@ -173,6 +173,7 @@ public class Member extends  BaseEntity{
 
 
 
+
     //< '새로운 기본값 타입'으로 아래 두 필드를 합쳐서 쓸 수 있는 '주소 Address 임베디드 타입'을 생성하기 >
     //- 즉, '새로운 클래스 PhoneNumber'를 '생성하고', '그 새로운 클래스 PhoneNumber' 안에 원래라면 저렇게 지저분하게 많이 있어햐 하는
     //  아래 주석 처리한 세 필드들(areaCode, localNumber, provider)을 넣기.
@@ -183,6 +184,22 @@ public class Member extends  BaseEntity{
 //    private String localNumber;
     @Embedded
     private PhoneNumber phoneNumber;
+
+
+//====================================================================================================================
+
+
+    //[ '값 타입 컬렉션'강 00:00~ ]
+    @ElementCollection
+    @CollectionTable(name = "FAVORIE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    @Column(name = "FOOD_NAME")
+    private Set<String> favoriteFoods = new HashSet<>();
+
+
+
+    @ElementCollection
+    @CollectionTable(name = "ADDRESS", joinColumns = @JoinColumn(name = "MEMBER_ID"))
+    private List<Address> addressHistory = new ArrayList<>();
 
 
 
@@ -202,6 +219,9 @@ public class Member extends  BaseEntity{
                                //그럴 때, 바로 이 '@Enumertaed'를 쓰면 된다!
                                //- 'enum 타입'을 매핑할 때는, 그냥 무조건 '@Enumerated(EnumType.STRING)' 딱 이렇게만
                                //쓴다고 보면 된다. 절대 'EnumType.ORDINAL' 쓰면 안된다!
+
+
+
 
     @Temporal(TemporalType.TIMESTAMP) //'날짜 타입' 매핑
     private Date createdDate; //- 그러나, 요즘에는 그냥 'private LocalDate testLocalDate' 또는
