@@ -142,29 +142,49 @@ public class Member extends  BaseEntity{
 //====================================================================================================================
 
 
-    //[ '임베디드 타입'강 05:00~ ]
+    //[ '임베디드 타입'강 05:00~ ]: 정말 긍정적으로 '객체지향적인 방식'이라서 강력추천!
+    //                           'Member 엔티티'가 더욱 '객체지향적'이고, '응집력 있게' 되었다.
     //< '새로운 기본값 타입'으로 아래 두 필드를 합쳐서 쓸 수 있는 '근무기간 Period 임베디드 타입'을 생성하기 >
-    //- 즉, '새로운 클래스 Period'를 '생성하고', '그 클래스 Period' 안에 아래 두 필드들을 넣기.
-    //  그리고, 아래 두 필드를 대신하여, 'private Period period'를 사용하는 것임.
+    //- 즉, '새로운 클래스 Period'를 '생성하고', '그 새로운 클래스 Period' 안에 원래라면 저렇게 지저분하게 많이 있어햐 하는
+    //  아래 주석 처리한 두 필드들(startDate, endDate)을 넣기.
+    //  그리고, 아래 두 필드를 대신하여, 아래에 '필드 workPeriod'를 대신 사용하는 것임.
     //- 그 후, '저 클래스 Period 위에는' '@Embeddable'을 쓰거나, 또는
-    //- 이 아래 '필드 period 위에는' '@Embedded'를 작성하거나 둘 중 하나만 하거나, 둘 다 작성해도 된다.
+    //- 이 아래 'Member 객체의 필드 workPeriod 위에는' '@Embedded'를 작성하거나 둘 중 하나만 하거나, 둘 다 작성해도 된다.
     //- 사실, '
 //    private LocalDateTime startDate;
 //    private LocalDateTime endDate;
     @Embedded
-    private Period period;
+    private Period workPeriod;
+
+
 
 
     //< '새로운 기본값 타입'으로 아래 두 필드를 합쳐서 쓸 수 있는 '주소 Address 임베디드 타입'을 생성하기 >
-    //- 즉, '새로운 클래스 Address'를 '생성하고', '그 클래스 Address' 안에 아래 세 필드들을 넣기.
-    //  그리고, 아래 세 필드들을 대신하여, 'private Address address'ㅇ를 사용하는 것임.
+    //- 즉, '새로운 클래스 Address'를 '생성하고', '그 새로운 클래스 Address' 안에 원래라면 저렇게 지저분하게 많이 있어햐 하는
+    // 아래 주석 처리한 세 필드들(city, street, zipcode)을 넣기.
+    //  그리고, 아래 세 필드들을 대신하여, 아래에 '필드 homeAddress'를 대신 사용하는 것임.
     //- 그 후, '저 클래스 Address 위에는' '@Embeddable'을 쓰거나, 또는
-    //- 이 아래 '필드 address 위에는' '@Embedded'를 작성하거나 둘 중 하나만 하거나, 둘 다 작성해도 된다.
+    //- 이 아래 'Member 객체의 필드 homeAddress 위에는' '@Embedded'를 작성하거나 둘 중 하나만 하거나, 둘 다 작성해도 된다.
 //    private String city;
 //    private String street;
 //    private String zipcode;
     @Embedded
-    private Address address;
+    private Address homeAddress;
+
+
+
+    //< '새로운 기본값 타입'으로 아래 두 필드를 합쳐서 쓸 수 있는 '주소 Address 임베디드 타입'을 생성하기 >
+    //- 즉, '새로운 클래스 PhoneNumber'를 '생성하고', '그 새로운 클래스 PhoneNumber' 안에 원래라면 저렇게 지저분하게 많이 있어햐 하는
+    //  아래 주석 처리한 세 필드들(areaCode, localNumber, provider)을 넣기.
+    //  그리고, 아래 세 필드들을 대신하여, 아래에 '필드 phoneNumber'를 대신 사용하는 것임.
+    //- 그 후, '저 클래스 PhoneNumber 위에는' '@Embeddable'을 쓰거나, 또는
+    //- 이 아래 'Member 객체의 필드 phoneNumber 위에는' '@Embedded'를 작성하거나 둘 중 하나만 하거나, 둘 다 작성해도 된다.
+//    private String areaCode;
+//    private String localNumber;
+    @Embedded
+    private PhoneNumber phoneNumber;
+
+
 
 
 //====================================================================================================================
