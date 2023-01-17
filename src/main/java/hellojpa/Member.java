@@ -139,11 +139,14 @@ public class Member extends  BaseEntity{
     private Locker locker;
 
 
-    
+
     //[ '임베디드 타입'강 05:00~ ]
+    //< '새로운 기본값 타입'으로 아래 두 필드를 합쳐서 쓸 수 있는 '근무기간 Period 임베디드 타입'을 생성하기 >
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
+
+    //< '새로운 기본값 타입'으로 아래 두 필드를 합쳐서 쓸 수 있는 '주소 Address 임베디드 타입'을 생성하기 >
     private String city;
     private String street;
     private String zipcode;
