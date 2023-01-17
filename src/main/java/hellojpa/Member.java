@@ -190,6 +190,8 @@ public class Member extends  BaseEntity{
 
 
     //[ '값 타입 컬렉션'강 00:00~ ]
+    //그런데, 실무에서는 '값 타입 컬렉션'을 사용하기보다, '새로운 엔티티를 만들어서', '1:N 일대다 연관관계 매핑'으로 설정하는 것을
+    //더 많이 사용함.
     @ElementCollection
     @CollectionTable(name = "FAVORIE_FOOD", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     @Column(name = "FOOD_NAME")
@@ -200,8 +202,6 @@ public class Member extends  BaseEntity{
     @ElementCollection
     @CollectionTable(name = "ADDRESS", joinColumns = @JoinColumn(name = "MEMBER_ID"))
     private List<Address> addressHistory = new ArrayList<>();
-
-
 
 
 //====================================================================================================================
