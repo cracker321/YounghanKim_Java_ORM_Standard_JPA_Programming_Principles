@@ -1,12 +1,12 @@
 package hellojpa;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.*;
 
 
@@ -19,6 +19,10 @@ import java.util.*;
 
 
 
+@NoArgsConstructor//JPA는 기본적으로 '기본 생성자'가 하나 반드시 있어야 한다.
+                  //왜냐하면, JPA는 내부적으로 '리플렉션' 등을 써야 하기 때문에, '동적으로 객체를 생성'하여야 하고,
+                  //따라서, '기본 생성자'가 하나 있어야 한다.
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity //여기선 기본적으로 '@Entity(name = "Member")'이고, 여기서 '(name = "Member")'는 생략된 상태임
@@ -27,8 +31,13 @@ import java.util.*;
                        //그러면 이제, 아래 'Mebmer 객체'는 DB에서 '테이블 Member'에 매핑되는 것이 아니고,
                        //'테이블 MBR'에 매핑됨.
                        //- 따라서, 쿼리도 이제 'INSERT INTO MBR VALUES..'로 DB에 날려지게 된다.
+public class Member{
 
-public class Member extends  BaseEntity{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String id;
+
+    private String name;
 
 
 //< '클래스 BaseEntity'의  '@MappedSupperClass' 기능 >
@@ -189,7 +198,7 @@ public class Member extends  BaseEntity{
 //====================================================================================================================
 
 
-    //[ '값 타입 컬렉션'강 00:00~ ]
+    //[ '값 타입 컬렉션'강 00:00~ ]. p339.
     //그런데, 실무에서는 '값 타입 컬렉션'을 사용하기보다, '새로운 엔티티를 만들어서', '1:N 일대다 연관관계 매핑'으로 설정하는 것을
     //더 많이 사용함.
     @ElementCollection
@@ -245,12 +254,7 @@ public class Member extends  BaseEntity{
 
 
 
-    //JPA는 기본적으로 '기본 생성자'가 하나 반드시 있어야 한다.
-    //왜냐하면, JPA는 내부적으로 '리플렉션' 등을 써야 하기 때문에, '동적으로 객체를 생성'하여야 하고,
-    //따라서, '기본 생성자'가 하나 있어야 한다.
-    public Member() { //꼭 'public'이어야 할 필요는 없음
 
-    }
 
     public Member(String username, RoleType roleType, Date createdDate, Date lastModifiedDate, String description) {
         this.username = username;
@@ -274,13 +278,19 @@ public class Member extends  BaseEntity{
         return team;
     }
 
+    //============================================================================================================
 
+    public Member(String id, String name){
+
+        this.id = id;
+        this.name = name;
+    }
 
     //============================================================================================================
     public void setTeam(Team team) {
         this.team = team;
 
-        team.getMembers().add(this); //'양방향 연관관계와 연관관계의 주인 2 - 주의점, 정리'강 12:20~
+        team.getMembers().add(this); //[ '양방향 연관관계와 연관관계의 주인 2 - 주의점, 정리'강 12:20~ ]
                                      //- '연관관계 편의 메소드'
     }
     //============================================================================================================

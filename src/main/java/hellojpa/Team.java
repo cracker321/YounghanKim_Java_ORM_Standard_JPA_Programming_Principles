@@ -1,17 +1,26 @@
 package hellojpa;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TEAM_ID")
-    private Long id;
+    private String id;
     private String name;
 
 //    < 'Team 객체(1)'와 'Member 객체(N)'와 간의 '1대 N 단방향' 연관관계 매핑. '주인 객체(외래키를 소유)'는 'Team 객체'인 경우. 잘 사용X >
@@ -43,11 +52,27 @@ public class Team {
 //                                                      //                    이래야, 'add'할 때, 'null point exception'안 뜸.
 
 
-    public Long getId() {
+
+
+
+//====================================================================================================================
+
+    public Team (String id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
+
+
+
+//====================================================================================================================
+
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
