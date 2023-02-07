@@ -286,13 +286,17 @@ public class Member{
     }
 
     //============================================================================================================
-    public void setTeam(Team team) {
+
+    //< 연관관계 편의 메소드 >
+    public void changeTeam(Team team) { //원래는 '세터 setTeam()'이었으나, '연관관계 편의 메소드'로 바꾸면서
+                                        //그 내부에 '추가로직(team.getMembers().add(this))'을 설정해주었기 때문에,
+                                        //메소드명 역시 'changeTeam()'으로 바꾼 것이다.d
         this.team = team;
 
         team.getMembers().add(this);
         //[ '양방향 연관관계와 연관관계의 주인 2 - 주의점, 정리'강 12:20~ ]
         //- '연관관계 편의 메소드'
-        //- '주인이 아닌 Team 객체'에서 '외래키'를 통해 'Member 객체를 조회(탐색. Read)'하고자 할 때,
+        //- '주인이 아닌 Team 객체'에서 '외래키'를 통해 'Member 객체를 조회(get.객체 그래프 탐색. Read)'하고자 할 때,
 
         //- 'this'는 '자기 자신 객체의 '인스턴스 변수(객체를 담고 있는 변수), 자기 자신의 메모리'를 의미함
         //  여기서는 만약, '외부 클래스에서 Member 객체를 생성하여(Member member = new Member()를 통해서)',
