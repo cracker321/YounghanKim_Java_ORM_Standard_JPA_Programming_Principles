@@ -13,7 +13,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 public class Team {
 
