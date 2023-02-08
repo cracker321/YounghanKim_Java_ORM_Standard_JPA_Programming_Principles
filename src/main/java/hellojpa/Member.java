@@ -290,7 +290,7 @@ public class Member{
     //< 연관관계 편의 메소드 >
     public void changeTeam(Team team) { //원래는 '세터 setTeam()'이었으나, '연관관계 편의 메소드'로 바꾸면서
                                         //그 내부에 '추가로직(team.getMembers().add(this))'을 설정해주었기 때문에,
-                                        //메소드명 역시 'changeTeam()'으로 바꾼 것이다.d
+                                        //메소드명 역시 'changeTeam()'으로 바꾼 것이다.dd
         this.team = team;
 
         team.getMembers().add(this);
