@@ -11,12 +11,8 @@ import javax.persistence.Persistence;
 @SpringBootApplication
 public class JpaHello {
     public static void main(String[] args){
-        /*
-        QMember m = QMember.member;
+       
 
-
-
-         */
        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
 
        EntityManager em = emf.createEntityManager();
@@ -28,7 +24,7 @@ public class JpaHello {
             Member member = new Member();
             member.setUsername("hello");
 
-            em.persist(member);
+            em.persist(member);//df
 
             em.flush();
             em.clear();
