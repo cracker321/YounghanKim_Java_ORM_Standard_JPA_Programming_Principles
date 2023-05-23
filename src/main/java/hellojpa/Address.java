@@ -27,9 +27,8 @@ import javax.persistence.Embedded;
 @Embeddable
 public class Address { //새로운 '값 타입(클래스)'인 'Address 객체'
 
-    //'접근제어자'는 사용 안한다!
-    String city;
-    String street;
+    private String city;
+    private String street;
 
 
 
