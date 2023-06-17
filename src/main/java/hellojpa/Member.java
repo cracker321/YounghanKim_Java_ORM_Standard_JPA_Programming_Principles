@@ -354,6 +354,7 @@ public class Member{
         < 연관관계 편의 메소드 1 >
 
         public void setTeam(Team team){
+        //- 'Team team': '외부 클래스 어딘가에서 현재 메소드를 호출할 때 새로운 인자값으로 들어온 새롭게 주어질 팀 team'
         //- 'void': 어차피, 특별한 반환값을 내놓지 않아도 되고, 그냥 서로 간의 관계를 재설정 또는..
 
 
